@@ -1,6 +1,6 @@
 #pragma once
 
-#define m_IL2CPPLIB "liblogic.so"
+#define m_IL2CPPLIB "libil2cpp.so"
 uintptr_t m_IL2CPP;
 bool g_Initialized, clearMousePos = true;
 int glWidth, glHeight;
