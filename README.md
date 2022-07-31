@@ -1,5 +1,7 @@
 # ImGui Unity Template by DivaArvian
-> 2022/07/31: Initial Comit.
+> 2022/07/31 14:32: Initial Commit (with imgui v1.85).
+
+> Soon Update with new version imgui.
 
 # What is ImGui?
 ImGui is basically a full stack GUI framework made with c++ which supports lots of operating systems
