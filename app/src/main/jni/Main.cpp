@@ -45,8 +45,6 @@
 
 EGLBoolean (*orig_eglSwapBuffers)(...);
 EGLBoolean _eglSwapBuffers (EGLDisplay dpy, EGLSurface surface) {
-	eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
-    eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
     if (!g_Initialized) {
         ImGui::CreateContext();
         ImGuiStyle* style = &ImGui::GetStyle();
@@ -68,8 +66,7 @@ EGLBoolean _eglSwapBuffers (EGLDisplay dpy, EGLSurface surface) {
 
         ImGuiIO* io = &ImGui::GetIO();
         io->IniFilename = nullptr;
-
-        ImGui_ImplAndroid_Init();
+		
         ImGui_ImplOpenGL3_Init("#version 300 es");
 
 		ImFontConfig font_cfg;
@@ -79,17 +76,18 @@ EGLBoolean _eglSwapBuffers (EGLDisplay dpy, EGLSurface surface) {
     }
 
     ImGuiIO* io = &ImGui::GetIO();
+	io->DisplaySize = ImVec2((float)get_width(), (float)get_height());
 	
 	/*get touch from unity game*/
-	ImGui_GetTouch(io, get_height());
+	ImGui_GetTouch(io, io->DisplaySize.y);
 	
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
     ImGui::NewFrame();
 	
 	/*load window here*/
 	ImGui::ShowDemoWindow();
 	
+	ImGui::EndFrame();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     if (clearMousePos) {

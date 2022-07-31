@@ -1,9 +1,8 @@
 #pragma once
 
-#define m_IL2CPPLIB "liblogic.so"
+#define m_IL2CPPLIB "libil2cpp.so"
 uintptr_t m_IL2CPP;
 bool g_Initialized, clearMousePos = true;
-int glWidth, glHeight;
 void *m_EGL;
 
 enum TouchPhase : int {
@@ -50,7 +49,12 @@ Vector3 get_mousePosition(void *instance) {
 }
 
 /*Class Screen*/
+#define Screen_get_width (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_width")
 #define Screen_get_height (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Screen", "get_height")
+
+int get_width() {
+	return reinterpret_cast<int(__fastcall *)()>(Screen_get_width)();
+}
 
 int get_height() {
 	return reinterpret_cast<int(__fastcall *)()>(Screen_get_height)();
